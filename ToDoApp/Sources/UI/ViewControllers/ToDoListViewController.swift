@@ -22,6 +22,12 @@ class ToDoListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView?
     
+    // MARK: - Deinit
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("com.todolistapp.additem"), object: nil)
+    }
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -51,6 +57,16 @@ class ToDoListViewController: UIViewController {
                                                                      target: self,
                                                                      action: #selector(onEdit))
         }
+    }
+    
+    @objc func addNewTask(_ notification: NSNotification) {
+        if let task = notification.object as? ToDoItemModel {
+            self.model.append(task)
+        } else {
+            return
+        }
+        self.model.sort(by: { $0.completionDate > $1.completionDate })
+        self.tableView?.reloadData()
     }
     
     // MARK: - Private methods
@@ -88,6 +104,10 @@ class ToDoListViewController: UIViewController {
 
         self.model.append(testItem)
         self.model.append(testItem2)
+    }
+    
+    private func prepareObserving() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addNewTask(_ :)), name: NSNotification.Name.init("com.todolistapp.additem"), object: nil)
     }
     
     // MARK: - Overrided methods

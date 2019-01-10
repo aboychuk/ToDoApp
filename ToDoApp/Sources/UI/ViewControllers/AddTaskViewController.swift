@@ -179,15 +179,32 @@ class AddTaskViewController: UIViewController {
             let taskDetails = self.taskDetailsTextView?.text,
         let completionDate = taskCompletionDatePicker?.date else { return }
         if taskName.isEmpty {
+            self.reportError(title: "Invalid task name", error: "Task name is required")
+            
             return
         }
         if taskDetails.isEmpty {
+            self.reportError(title: "Invalid task details", error: "Task details are required")
+            
             return
         }
         if completionDate < Date() {
+            self.reportError(title: "Invalid date", error: "Date must be in future")
+            
             return
         }
         let toDoItem = ToDoItemModel(name: taskName, details: taskDetails, completionDate: completionDate)
+        NotificationCenter.default.post(name: NSNotification.Name.init("com.todolistapp.additem"), object: toDoItem)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func reportError(title: String, error: String) {
+        let alertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (alert) in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
