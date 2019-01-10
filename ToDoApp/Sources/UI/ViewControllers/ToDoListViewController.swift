@@ -34,6 +34,25 @@ class ToDoListViewController: UIViewController {
         self.tableView?.setEditing(false, animated: false)
     }
     
+    // MARK: - Obj-C
+    
+    @objc func onAdd() {
+        self.performSegue(withIdentifier: Strings.AddTaskSegue.value, sender: nil)
+    }
+    
+    @objc func onEdit() {
+        _ = self.tableView.map { $0.setEditing(!$0.isEditing, animated: true) }
+        if tableView?.isEditing ?? false {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                                     target: self,
+                                                                     action: #selector(onEdit))
+        } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                                                     target: self,
+                                                                     action: #selector(onEdit))
+        }
+    }
+    
     // MARK: - Private methods
     
     private func prepareView() {
@@ -45,8 +64,12 @@ class ToDoListViewController: UIViewController {
     }
     
     private func prepareNavigationItems() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAdd))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(onEdit))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                                target: self,
+                                                                action: #selector(onAdd))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                                                 target: self,
+                                                                 action: #selector(onEdit))
     }
     
     private func prepareViewController() {
@@ -65,19 +88,6 @@ class ToDoListViewController: UIViewController {
 
         self.model.append(testItem)
         self.model.append(testItem2)
-    }
-    
-    @objc func onAdd() {
-        self.performSegue(withIdentifier: Strings.AddTaskSegue.value, sender: nil)
-    }
-    
-    @objc func onEdit() {
-        _ = self.tableView.map { $0.setEditing(!$0.isEditing, animated: true) }
-        if tableView?.isEditing ?? false {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onEdit))
-        } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(onEdit))
-        }
     }
     
     // MARK: - Overrided methods
@@ -104,7 +114,10 @@ extension ToDoListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: Strings.Delete.value) { (action, indexpath) in
+        let delete = UITableViewRowAction(style: .destructive,
+                                          title: Strings.Delete.value)
+        {
+            (action, indexpath) in
             self.model.remove(at: indexPath.row)
             self.tableView?.deleteRows(at: [indexPath], with: .automatic)
         }
