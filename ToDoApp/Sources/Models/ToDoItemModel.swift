@@ -7,3 +7,25 @@
 //
 
 import Foundation
+
+struct ToDoItemModel {
+    
+    // MARK: - Properties
+    
+    var name: String
+    var details: String
+    var completionDate: Date
+    var startDate: Date
+    var isComplete: Bool
+    
+    // MARK - Init
+    
+    init(name: String, details: String, completionDate: Date) {
+        self.name = name
+        self.details = details
+        self.completionDate = completionDate
+        self.startDate = Date()
+        self.isComplete = false
+    }
+ }
+ 

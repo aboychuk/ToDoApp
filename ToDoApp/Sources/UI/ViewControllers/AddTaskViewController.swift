@@ -12,11 +12,11 @@ class AddTaskViewController: UIViewController {
     
     // MARK: - IBOutlets
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var taskNameTextField: UITextField!
-    @IBOutlet weak var taskDetailsTextView: UITextView!
-    @IBOutlet weak var taskCompletionDatePicker: UIDatePicker!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var navigationBar: UINavigationBar?
+    @IBOutlet weak var taskNameTextField: UITextField?
+    @IBOutlet weak var taskDetailsTextView: UITextView?
+    @IBOutlet weak var taskCompletionDatePicker: UIDatePicker?
+    @IBOutlet weak var scrollView: UIScrollView?
     
     // MARK: - View lifecycle
     
