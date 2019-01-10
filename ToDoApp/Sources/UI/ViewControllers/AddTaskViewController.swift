@@ -30,6 +30,32 @@ class AddTaskViewController: UIViewController {
         
     }
     
+    // MARK: - Private methods
+    
+    private func prepareView() {
+        self.prepareNavigationBar()
+        self.prepareTextView()
+    }
+    
+    private func prepareNavigationBar() {
+        let navigationItem = UINavigationItem(title: Strings.AddItem.value)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(onCancel))
+        self.navigationBar?.items = [navigationItem]
+    }
+    
+    private func prepareTextView() {
+        let textView = UITextView()
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.layer.borderWidth = CGFloat(1)
+        textView.layer.cornerRadius = CGFloat(6)
+        self.taskDetailsTextView? = textView
+    }
+    
+    
+    @objc func onCancel() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     
 }

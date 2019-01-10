@@ -62,6 +62,7 @@
                     <connections>
                         <outlet property="tableView" destination="qu5-4n-exV" id="Pel-T1-4H7"/>
                         <segue destination="k7o-Ai-0d8" kind="show" identifier="TaskDetailsSegue" id="9Tc-jz-wOW"/>
+                        <segue destination="Xu4-Sk-1d2" kind="presentation" identifier="AddTaskSegue" id="NHW-og-dFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -197,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ch8-4m-8gl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549.5999999999999" y="-125.4872563718141"/>
+            <point key="canvasLocation" x="2386" y="-83"/>
         </scene>
         <!--To Do Details View Controller-->
         <scene sceneID="vfs-sm-CMQ">

@@ -10,10 +10,13 @@ import Foundation
 
 public enum Strings: String {
     case TaskDetailsSegue
+    case AddTaskSegue
     case ToDoItem
     case Complete
     case Incomplete
+    case Delete
     case ToDoList = "To Do List"
+    case AddItem = "Add Item"
     
     var value: String {
         return self.rawValue

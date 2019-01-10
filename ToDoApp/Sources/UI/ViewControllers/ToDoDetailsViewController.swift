@@ -13,6 +13,8 @@ class ToDoDetailsViewController: UIViewController {
     // MARK: - Properties
     
     var model: ToDoItemModel?
+    var index: Int?
+    weak var delegate: ToDoListDelegate?
     
     // MARK: - IBOutlets
     
@@ -31,7 +33,9 @@ class ToDoDetailsViewController: UIViewController {
     // MARK: - IBActions
     
     @IBAction func taskDidComplete(_ sender: Any) {
-        
+        guard var model = self.model, let index = self.index else { return }
+        model.isComplete = true
+        self.delegate?.update(task: model, index: index)
     }
     
     // MARK: - Private methods
