@@ -22,6 +22,7 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupView()
     }
     
     // MARK: - IBAction
@@ -30,11 +31,20 @@ class AddTaskViewController: UIViewController {
         
     }
     
+    @objc func onCancel() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func onDone() {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Private methods
     
-    private func prepareView() {
+    private func setupView() {
         self.prepareNavigationBar()
         self.prepareTextView()
+        self.prepareToolbarDone()
     }
     
     private func prepareNavigationBar() {
@@ -44,18 +54,24 @@ class AddTaskViewController: UIViewController {
     }
     
     private func prepareTextView() {
-        let textView = UITextView()
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.layer.borderWidth = CGFloat(1)
-        textView.layer.cornerRadius = CGFloat(6)
-        self.taskDetailsTextView? = textView
+        let viewLayer = self.taskDetailsTextView?.layer
+        viewLayer?.borderColor = UIColor.lightGray.cgColor
+        viewLayer?.borderWidth = CGFloat(1)
+        viewLayer?.cornerRadius = CGFloat(6)
     }
     
-    
-    @objc func onCancel() {
-        self.dismiss(animated: true, completion: nil)
+    private func prepareToolbarDone() {
+        let toolBarDone = UIToolbar()
+        toolBarDone.isTranslucent = false
+        toolBarDone.sizeToFit()
+        toolBarDone.barTintColor = UIColor.red
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        let barButtonDone = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(onDone))
+        barButtonDone.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
+                                              NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        self.toolbarItems = [flexSpace, barButtonDone, flexSpace]
+        self.taskNameTextField?.inputAccessoryView = toolBarDone
+        self.taskDetailsTextView?.inputAccessoryView = toolBarDone
     }
-    
-    
-    
 }
